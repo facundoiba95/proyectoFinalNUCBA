@@ -122,21 +122,20 @@ export const fetchMatchesArgentina = createAsyncThunk(
          
 
            const resArray = res.matches;
-        //    const phase = 'match.league.round == ""';
-        //   const resArray = JSON.parse(localStorage.getItem('ligaArgentina'));
+
           const date = new Date().toISOString().slice(0,10);
           const setPhase = resArray.map(match => {
             return {... match, phase: match.league.round.substring(0,10)}
           })
-          const PrimeraFase = setPhase.filter(match => match.phase == '1st Phase ')
-
-          const getMatchday = PrimeraFase.find(match =>  {
-            if(match.date >= date && match.phase == '1st Phase '){
+          const SegundaFase = setPhase.filter(match => match.phase == '2nd Phase ')
+          
+          const getMatchday = SegundaFase.find(match =>  {
+            if(match.date >= date && match.phase == '2nd Phase '){
                 return match.currentMatchday = Number(match.league.round.substring(12))
             };
         }).currentMatchday;
 
-           const newArray = PrimeraFase.map(match => {
+           const newArray = SegundaFase.map(match => {
             const matchday = Number(match.league.round.substring(12)); 
             return { ... match,
                 matchday,
@@ -150,6 +149,7 @@ export const fetchMatchesArgentina = createAsyncThunk(
            const previusMatchday = newArray.filter(match => match.previusMatchday === match.matchday)
            const nextMatchday = newArray.filter(match => match.nextMatchday === match.matchday)
 
+        
           return {
            currentMatchday,
            previusMatchday,

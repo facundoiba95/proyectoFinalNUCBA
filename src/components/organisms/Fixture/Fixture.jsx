@@ -17,33 +17,27 @@ const Fixture = () => {
    const params = useParams();
 
    const handleIsCup = () => {
-    const isCupLeague = isCup[matchesLeague[params.idLeague]];
-    const matches = isCupLeague ? getMatches.scheduledMatchesCup : getMatches;
-    const titlePrefix = isCupLeague ? '' : 'Fecha ';
-    // const currentMatchday = params.idLeague == 152 ? getMatchesArgentina.previusMatchday[0].currentMatchday : getMatches.previusMatchday[0].currentMatchday
     return (
       <>
-
       {
-        isCup[matchesLeague[params.idLeague]]
-        ? <> 
-            <TitleStyle>Próxima fecha</TitleStyle>
-            <ItemMatch handleState={matches} titleLeague="asca" />
-            <br />  
-          </>
-        : <>
-            <TitleStyle>{titlePrefix}anterior</TitleStyle>
-            <ItemMatch handleState={params.idLeague == 152 ? getMatchesArgentina.previusMatchday : getMatches.previusMatchday} titleLeague="asd" />
-            <br />
-            <TitleStyle>{titlePrefix}actual:</TitleStyle>
-            <ItemMatch handleState={params.idLeague == 152 ? getMatchesArgentina.currentMatchday : getMatches.currentMatchday} titleLeague="ascas" />
-            <br />
-            <TitleStyle>Próxima fecha</TitleStyle>
-            <ItemMatch handleState={params.idLeague == 152 ? getMatchesArgentina.nextMatchday : getMatches.nextMatchday} titleLeague="asca" />
-            <br />
-          </>
+        <>
+          {
+            !getMatches.matchesLeague || !getMatchesArgentina.ligaArgentina ?
+            <></>
+            : <>
+                <TitleStyle> Fecha anterior</TitleStyle>
+                <ItemMatch handleState={params.idLeague == 152 ? getMatchesArgentina.previusMatchday : getMatches.previusMatchday} titleLeague="asd" />
+              </>
+          }
+          <br />
+           <TitleStyle>Fecha actual:</TitleStyle>
+          <ItemMatch handleState={params.idLeague == 152 ? getMatchesArgentina.currentMatchday : getMatches.currentMatchday} titleLeague="ascas" />
+          <br />
+          <TitleStyle>Próxima fecha</TitleStyle>
+          <ItemMatch handleState={params.idLeague == 152 ? getMatchesArgentina.nextMatchday : getMatches.nextMatchday} titleLeague="asca" />
+          <br />
+        </>
       }
-
       </>
     )
   };
